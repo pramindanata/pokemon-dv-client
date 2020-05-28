@@ -3,14 +3,14 @@ import { Container } from 'react-bootstrap'
 import Layout from '../components/Layout'
 import Head from '../components/Head'
 
-const Home = () => {
+const Visualization = () => {
   return (
     <>
-      <Head title="Home" />
+      <Head title="Data Visualization" />
       <Layout>
         <Container className="py-4">
           <div>
-            <h1>Home</h1>
+            <h1>Visualization</h1>
             <p>Hello</p>
           </div>
         </Container>
@@ -19,4 +19,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Visualization
