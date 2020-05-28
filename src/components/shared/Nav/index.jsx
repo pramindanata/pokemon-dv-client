@@ -12,7 +12,10 @@ const Navigation = () => {
           variant="dark"
           className="px-0"
         >
-          <Navbar.Brand>PokeDV</Navbar.Brand>
+          <Link href="/" passHref>
+            <Navbar.Brand>PokeDV</Navbar.Brand>
+          </Link>
+
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
             <Nav className="ml-auto">

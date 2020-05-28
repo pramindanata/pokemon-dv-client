@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import styles from './index.module.css'
 
 const Filter = (props) => {
-  const { className, onSubmit, loading, ...rest } = props
+  const { className, onSubmit, loading, initial, ...rest } = props
   const classes = classnames(className)
   const [search, setSearch] = useState('')
   const [orderBy, setOrderBy] = useState('index')
@@ -24,6 +24,12 @@ const Filter = (props) => {
     ]
     const placeholder =
       pokemonNames[Math.floor(Math.random() * pokemonNames.length)]
+
+    if (initial) {
+      setSearch(initial.search || '')
+      setOrderBy(initial.orderBy || 'index')
+      setSortBy(initial.sortBy || 'asc')
+    }
 
     setSearchPH(`${placeholder}...`)
   }, [])
@@ -61,8 +67,8 @@ const Filter = (props) => {
                 value={orderBy}
                 onChange={(e) => setOrderBy(e.target.value)}
               >
-                <option value="asc">Index</option>
-                <option value="desc">Name</option>
+                <option value="index">Index</option>
+                <option value="name">Name</option>
               </Form.Control>
             </Form.Group>
           </Col>
@@ -108,6 +114,7 @@ const Filter = (props) => {
 
 Filter.propTypes = {
   className: PropTypes.any,
+  initial: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 }
