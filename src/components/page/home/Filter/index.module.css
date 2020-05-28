@@ -1,0 +1,22 @@
+@media (max-width: 575px) {
+  .filter-btn-label {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .filter-btn-label {
+    display: none;
+  }
+
+  .filter-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 992px) {
+  .filter-btn-label {
+    display: block;
+  }
+}

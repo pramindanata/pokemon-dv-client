@@ -5,7 +5,13 @@ const Navigation = () => {
   return (
     <div className="bg-primary">
       <Container>
-        <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
+        <Navbar
+          collapseOnSelect
+          expand="md"
+          bg="primary"
+          variant="dark"
+          className="px-0"
+        >
           <Navbar.Brand>PokeDV</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">

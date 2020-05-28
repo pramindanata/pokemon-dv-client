@@ -9,12 +9,14 @@
     "lint": "eslint \"./src/**/*.{jsx,js}\""
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.4",
     "next": "9.4.4",
+    "qs": "^6.9.4",
     "react": "16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "16.13.1",
