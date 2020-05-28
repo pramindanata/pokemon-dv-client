@@ -1,4 +1,4 @@
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import Router, { useRouter } from 'next/router'
 import qs from 'qs'
@@ -7,14 +7,14 @@ import PropTypes from 'prop-types'
 import Layout from '../components/shared/Layout'
 import Head from '../components/shared/Head'
 import Filter from '../components/page/home/Filter'
-import { getPokemons } from '../request/pokemon'
+import { getPokemons as getPokemonsReq } from '../request/pokemon'
 
 const Home = (props) => {
   const router = useRouter()
   const [filter, setFilter] = useState({})
   const [loading, setLoading] = useState(false)
   const [submit, setSubmit] = useState(false)
-  const [pokemons, setPokemons] = useState([])
+  const [pokemons, setPokemons] = useState(null)
 
   function onSubmit(filter) {
     setFilter(filter)
@@ -30,6 +30,14 @@ const Home = (props) => {
     })
   }
 
+  function getPokemons(pokemonFromProps, pokemonFromState) {
+    if (pokemonFromState !== null) {
+      return pokemonFromState
+    }
+
+    return pokemonFromProps
+  }
+
   useEffect(() => {
     setPokemons(props.pokemons)
   }, [])
@@ -38,7 +46,7 @@ const Home = (props) => {
     if (submit & !loading) {
       setLoading(true)
 
-      getPokemons(filter)
+      getPokemonsReq(filter)
         .then((res) => {
           setPokemons(res.data)
         })
@@ -53,14 +61,26 @@ const Home = (props) => {
     <>
       <Head title="Home" />
       <Layout>
-        <Container className="py-4">
-          <Filter onSubmit={onSubmit} />
+        <>
+          <Container className="py-4">
+            <Filter onSubmit={onSubmit} loading={loading} />
 
-          <div>
-            <h1>Home</h1>
-            <p>Hello</p>
-          </div>
-        </Container>
+            <div>
+              <h1>Home</h1>
+              <p>Hello</p>
+            </div>
+          </Container>
+
+          <Container fluid>
+            <Row>
+              {getPokemons(props.pokemons, pokemons).data.map((pokemon) => (
+                <Col sm="6" md="4" lg="3" key={pokemon.id}>
+                  <p>{pokemon.name}</p>
+                </Col>
+              ))}
+            </Row>
+          </Container>
+        </>
       </Layout>
     </>
   )
@@ -72,7 +92,7 @@ Home.propTypes = {
 
 export async function getServerSideProps(ctx) {
   const filter = ctx.query
-  const res = await getPokemons(filter)
+  const res = await getPokemonsReq(filter)
 
   return {
     props: {

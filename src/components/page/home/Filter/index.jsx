@@ -5,11 +5,11 @@ import PropTypes from 'prop-types'
 import styles from './index.module.css'
 
 const Filter = (props) => {
-  const { className, onSubmit, ...rest } = props
+  const { className, onSubmit, loading, ...rest } = props
   const classes = classnames(className)
   const [search, setSearch] = useState('')
-  const [order, setOrder] = useState('index')
-  const [sort, setSort] = useState('asc')
+  const [orderBy, setOrderBy] = useState('index')
+  const [sortBy, setSortBy] = useState('asc')
   const [searchPH, setSearchPH] = useState('')
 
   useEffect(() => {
@@ -32,8 +32,8 @@ const Filter = (props) => {
     e.preventDefault()
     onSubmit({
       search,
-      sort,
-      order,
+      sortBy,
+      orderBy,
     })
   }
 
@@ -58,8 +58,8 @@ const Filter = (props) => {
               <Form.Label>Order By</Form.Label>
               <Form.Control
                 as="select"
-                value={order}
-                onChange={(e) => setOrder(e.target.value)}
+                value={orderBy}
+                onChange={(e) => setOrderBy(e.target.value)}
               >
                 <option value="asc">Index</option>
                 <option value="desc">Name</option>
@@ -72,8 +72,8 @@ const Filter = (props) => {
               <Form.Label>Sort By</Form.Label>
               <Form.Control
                 as="select"
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
               >
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
@@ -88,9 +88,16 @@ const Filter = (props) => {
               >
                 action
               </Form.Label>
-              <Button variant="primary" block type="submit">
-                Apply
-              </Button>
+
+              {!loading ? (
+                <Button variant="primary" block type="submit">
+                  Apply
+                </Button>
+              ) : (
+                <Button variant="primary" block disabled>
+                  Loading
+                </Button>
+              )}
             </Form.Group>
           </Col>
         </Row>
@@ -102,6 +109,7 @@ const Filter = (props) => {
 Filter.propTypes = {
   className: PropTypes.any,
   onSubmit: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 }
 
 export default Filter
