@@ -1,0 +1,75 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "./variable.scss";
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans&display=swap');
+
+$theme-colors: (
+  "primary": map-get($map: $app-colors, $key: "primary"),
+  "secondary": map-get($map: $app-colors, $key: "secondary"),
+  "success": map-get($map: $app-colors, $key: "success"),
+  "info": map-get($map: $app-colors, $key: "info"),
+  "warning": map-get($map: $app-colors, $key: "warning"),
+  "danger": map-get($map: $app-colors, $key: "danger"),
+  "light": map-get($map: $app-colors, $key: "light"),
+  "dark": map-get($map: $app-colors, $key: "dark"));
+
+$font-family-base: 'Merriweather', serif;
+$font-family-header: 'Merriweather Sans', sans-serif;
+$line-height-base: 1.7;
+
+$headings-font-family: $font-family-header;
+$headings-font-weight: 800;
+
+$btn-border-radius: 0;
+$btn-border-radius-lg: 0;
+$btn-border-radius-sm: 0;
+
+$modal-content-border-radius: 0;
+
+$alert-border-radius: 0;
+
+$input-border-radius: 0;
+$input-border-radius-lg:0;
+$input-border-radius-sm: 0;
+
+$card-border-radius: 0;
+
+$navbar-dark-color: rgba($white, .8);
+$navbar-dark-hover-color: rgba($white, .95);
+
+// Prefix `c` stand for `custom`
+$c-lg-breakpoint: map-get($grid-breakpoints, "lg");
+
+.text-sm {
+  font-size: $font-size-sm;
+}
+
+@media (max-width: $c-lg-breakpoint - 1) {
+  .app-navbar .navbar-nav {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .app-navbar .navbar-nav .nav-link {
+    padding-left: $nav-link-padding-x;
+    padding-right: $nav-link-padding-x;
+  }
+
+  .app-navbar .desktop-nav-item {
+    display: none!important;
+  }
+}
+
+@media (min-width: $c-lg-breakpoint) {
+  .app-navbar .mobile-nav-item.navbar-collapse.collapse {
+    display: none!important;
+  }
+
+  .app-navbar .mobile-nav-item {
+    display: none!important;
+  }
+}
+
+@import '~bootstrap/scss/bootstrap.scss';
