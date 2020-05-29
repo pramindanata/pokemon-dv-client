@@ -58,7 +58,7 @@ const PokemonDetail = (props) => {
               <div>
                 <h5>Base Stats</h5>
 
-                <div></div>
+                <div>
                   {stats.map((stat) => (
                     <div key={stat.name} className="d-flex align-items-center">
                       <div className={`${styles['stat-label']}`}>
