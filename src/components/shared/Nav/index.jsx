@@ -1,7 +1,10 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 
 const Navigation = () => {
+  const router = useRouter()
+
   return (
     <div className="bg-primary">
       <Container>
@@ -18,7 +21,7 @@ const Navigation = () => {
 
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
-            <Nav className="ml-auto">
+            <Nav className="ml-auto" activeKey={router.pathname}>
               <Link href="/" passHref>
                 <Nav.Link>Home</Nav.Link>
               </Link>
