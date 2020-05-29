@@ -1,5 +1,5 @@
 import { Card, Form, Row, Col, Button } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import styles from './index.module.css'
@@ -8,6 +8,10 @@ const GenerationFilter = (props) => {
   const { className, initial, loading, onSubmit, ...rest } = props
   const classes = classnames(className)
   const [generation, setGeneration] = useState(initial || 'all')
+
+  useEffect(() => {
+    setGeneration(initial)
+  }, [initial])
 
   function submit(e) {
     e.preventDefault()
@@ -74,7 +78,7 @@ const GenerationFilter = (props) => {
 
 GenerationFilter.propTypes = {
   className: PropTypes.any,
-  initial: PropTypes.object,
+  initial: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 }

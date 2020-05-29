@@ -7,9 +7,9 @@ import styles from './index.module.css'
 const Filter = (props) => {
   const { className, onSubmit, loading, initial, ...rest } = props
   const classes = classnames(className)
-  const [search, setSearch] = useState('')
-  const [orderBy, setOrderBy] = useState('index')
-  const [sortBy, setSortBy] = useState('asc')
+  const [search, setSearch] = useState(initial.search || '')
+  const [orderBy, setOrderBy] = useState(initial.orderBy || 'index')
+  const [sortBy, setSortBy] = useState(initial.sortBy || 'asc')
   const [searchPH, setSearchPH] = useState('')
 
   useEffect(() => {
@@ -25,14 +25,14 @@ const Filter = (props) => {
     const placeholder =
       pokemonNames[Math.floor(Math.random() * pokemonNames.length)]
 
-    if (initial) {
-      setSearch(initial.search || '')
-      setOrderBy(initial.orderBy || 'index')
-      setSortBy(initial.sortBy || 'asc')
-    }
-
     setSearchPH(`${placeholder}...`)
   }, [])
+
+  useEffect(() => {
+    setSearch(initial.search || '')
+    setOrderBy(initial.orderBy || 'index')
+    setSortBy(initial.sortBy || 'asc')
+  }, [initial])
 
   function submit(e) {
     e.preventDefault()
@@ -54,7 +54,7 @@ const Filter = (props) => {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={`${searchPH}...`}
+                placeholder={`${searchPH}`}
               />
             </Form.Group>
           </Col>

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import Layout from '~/components/shared/Layout'
 import Head from '~/components/shared/Head'
 import Filter from '~/components/page/home/Filter'
-import Pokemon from '~/components/page/home/PokemonCard'
+import Pokemon from '~/components/shared/PokemonCard'
 import Pagination from '~/components/shared/Pagination'
 import Error from '~/components/shared/Error'
 
@@ -16,16 +16,11 @@ import { getPokemons as getPokemonsReq } from '~/request/pokemon'
 const Home = (props) => {
   const maxPerPage = 24
   const router = useRouter()
+  const [pageReady, setPageReady] = useState(false)
   const [filter, setFilter] = useState(props.filter)
   const [loading, setLoading] = useState(false)
   const [submit, setSubmit] = useState(false)
   const [pokemons, setPokemons] = useState(props.pokemons)
-
-  function onSubmit(filter) {
-    setFilter(filter)
-    updateUrl(filter)
-    setSubmit(true)
-  }
 
   function updateUrl(filter) {
     const query = qs.stringify(filter)
@@ -37,18 +32,21 @@ const Home = (props) => {
     }
   }
 
+  function onSubmit(filter) {
+    updateUrl(filter)
+  }
+
   function onPageChange(selectedItem) {
     const newFilter = {
       ...filter,
       page: selectedItem.selected + 1,
     }
-    setFilter(newFilter)
-    setSubmit(true)
+    updateUrl(newFilter)
   }
 
   useEffect(() => {
-    updateUrl(filter)
-  }, [filter])
+    setPageReady(true)
+  }, [])
 
   useEffect(() => {
     if (submit) {
@@ -59,11 +57,22 @@ const Home = (props) => {
     }
   }, [submit])
 
+  // Refetch after clicking browser navigation (back, forward)
+  useEffect(() => {
+    setFilter({
+      ...router.query,
+    })
+
+    if (pageReady) {
+      setSubmit(true)
+    }
+  }, [router])
+
   useEffect(() => {
     if (submit & !loading) {
       setLoading(true)
 
-      getPokemonsReq(filter)
+      getPokemonsReq(router.query)
         .then((res) => {
           setPokemons(res.data)
         })
@@ -83,11 +92,7 @@ const Home = (props) => {
             <h3>Explore Pokemon !</h3>
           </div>
 
-          <Filter
-            onSubmit={onSubmit}
-            loading={loading}
-            initial={props.filter}
-          />
+          <Filter onSubmit={onSubmit} loading={loading} initial={filter} />
 
           <hr className="mb-4 mt-2" />
 

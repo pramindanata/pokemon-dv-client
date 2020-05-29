@@ -15,6 +15,9 @@ $theme-colors: (
   "light": map-get($map: $app-colors, $key: "light"),
   "dark": map-get($map: $app-colors, $key: "dark"));
 
+$list-group-active-bg: map-get($map: $app-colors, $key: "primary");
+$list-group-active-border-color: map-get($map: $app-colors, $key: "primary");
+
 $font-family-base: 'Merriweather', serif;
 $font-family-header: 'Merriweather Sans', sans-serif;
 $line-height-base: 1.7;

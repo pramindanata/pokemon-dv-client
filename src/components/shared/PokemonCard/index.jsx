@@ -9,12 +9,14 @@ import TypeBadge from '~/components/shared/PokemonTypeBadge'
 import { getImageUrl } from '~/util'
 
 const PokemonCard = (props) => {
-  const { className, pokemon, ...rest } = props
+  const { className, pokemon, top, ...rest } = props
   const classes = classnames(className)
 
   return (
     <div className={classes} {...rest}>
       <Card>
+        {top}
+
         <Card.Body className="border-bottom py-2">
           <div className="text-center">
             <strong className="mb-0 text-sm text-muted">{`#${pokemon.index
@@ -61,6 +63,7 @@ const PokemonCard = (props) => {
 
 PokemonCard.propTypes = {
   className: PropTypes.any,
+  top: PropTypes.element,
   pokemon: PropTypes.object.isRequired,
 }
 

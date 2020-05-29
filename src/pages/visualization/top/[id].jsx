@@ -1,14 +1,13 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
-import Router, { useRouter } from 'next/router'
-import qs from 'qs'
 
 import Layout from '~/components/shared/Layout'
 import Head from '~/components/shared/Head'
 import Error from '~/components/shared/Error'
 import Filter from '~/components/shared/GenerationFilter'
 import Sidebar from '~/components/page/visualization/top/Sidebar'
+import Top3 from '~/components/page/visualization/top/Top3'
 
 import { getStats } from '~/util'
 import { getTop } from '~/request/top'
@@ -21,7 +20,6 @@ const TopDetail = (props) => {
     graphData: initialGraphData,
     filter: initialFilter,
   } = props
-  const router = useRouter()
   const [graphData, setGraphData] = useState(initialGraphData)
   const [filter, setFilter] = useState(initialFilter)
   const [loading, setLoading] = useState(false)
@@ -29,23 +27,8 @@ const TopDetail = (props) => {
 
   function onSubmit(generation) {
     setFilter({ generation })
-    updateUrl(filter)
     setSubmit(true)
   }
-
-  function updateUrl(filter) {
-    const query = qs.stringify(filter)
-
-    if (query !== '') {
-      Router.push(`${router.pathname}`, `/visualization/top/${id}?${query}`, {
-        shallow: true,
-      })
-    }
-  }
-
-  useEffect(() => {
-    updateUrl(filter)
-  }, [filter])
 
   useEffect(() => {
     if (submit && !loading) {
@@ -73,19 +56,22 @@ const TopDetail = (props) => {
 
           {!error ? (
             <Row>
-              <Col md="4" lg="3">
+              <Col md="4" lg="3" className="mb-4">
                 <Sidebar />
               </Col>
+
               <Col md="8" lg="9">
                 <div>
                   <Filter
-                    className="mb-3"
+                    className="mb-4"
                     loading={loading}
                     onSubmit={onSubmit}
                     initial={filter.generation ?? 'all'}
                   />
 
                   {loading && <p>Loading...</p>}
+
+                  {!loading && <Top3 pokemons={graphData.top3} />}
                 </div>
               </Col>
             </Row>
@@ -138,6 +124,7 @@ export async function getServerSideProps(ctx) {
       stat: stat ?? null,
       graphData,
       filter: ctx.query,
+      key: new Date().getTime(),
     },
   }
 }
