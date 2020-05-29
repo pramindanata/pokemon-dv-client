@@ -29,6 +29,7 @@ const Pagination = (props) => {
       pageRangeDisplayed={pageRangeDisplayed || 3}
       marginPagesDisplayed={marginPagesDisplayed || 3}
       initialPage={initialPage || 0}
+      disableInitialCallback={true}
     />
   )
 }

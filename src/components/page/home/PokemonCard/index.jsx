@@ -14,11 +14,20 @@ const PokemonCard = (props) => {
   return (
     <div className={classes} {...rest}>
       <Card>
+        <Card.Body className="border-bottom py-2">
+          <div className="text-center">
+            <strong className="mb-0 text-sm text-muted">{`#${pokemon.index
+              .toString()
+              .padStart(3, '0')}`}</strong>
+          </div>
+        </Card.Body>
+
         <Card.Img
           variant="top"
           src={getImageUrl(pokemon.image)}
           className="border-bottom"
         ></Card.Img>
+
         <Card.Body>
           <div className="text-center">
             <Card.Title>{pokemon.name}</Card.Title>

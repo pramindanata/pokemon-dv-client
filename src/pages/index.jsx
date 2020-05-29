@@ -15,7 +15,7 @@ import { getPokemons as getPokemonsReq } from '../request/pokemon'
 const Home = (props) => {
   const maxPerPage = 24
   const router = useRouter()
-  const [filter, setFilter] = useState({})
+  const [filter, setFilter] = useState(props.filter)
   const [loading, setLoading] = useState(false)
   const [submit, setSubmit] = useState(false)
   const [pokemons, setPokemons] = useState(props.pokemons)
@@ -29,13 +29,16 @@ const Home = (props) => {
   function updateUrl(filter) {
     const query = qs.stringify(filter)
 
-    Router.push(`${router.pathname}?${query}`, undefined, {
-      shallow: true,
-    })
+    if (query !== '') {
+      Router.push(`${router.pathname}?${query}`, undefined, {
+        shallow: true,
+      })
+    }
   }
 
   function onPageChange(selectedItem) {
     const newFilter = {
+      ...filter,
       page: selectedItem.selected + 1,
     }
     setFilter(newFilter)
@@ -45,6 +48,15 @@ const Home = (props) => {
   useEffect(() => {
     updateUrl(filter)
   }, [filter])
+
+  useEffect(() => {
+    if (submit) {
+      setPokemons({
+        data: [],
+        total: 0,
+      })
+    }
+  }, [submit])
 
   useEffect(() => {
     if (submit & !loading) {
@@ -60,8 +72,6 @@ const Home = (props) => {
         })
     }
   }, [submit, loading, filter])
-
-  console.log('awaw')
 
   return (
     <>
@@ -80,24 +90,53 @@ const Home = (props) => {
 
           <hr className="mb-4 mt-2" />
 
+          {filter.search && !props.error && (
+            <div>
+              <p className="lead">
+                Result for &quot;<i>{filter.search}&quot;:</i>
+              </p>
+            </div>
+          )}
+
           {!props.error ? (
             <>
-              <Row>
-                {pokemons.data.map((pokemon) => (
-                  <Col xs="6" md="4" lg="3" key={pokemon.id} className="mb-4">
-                    <Pokemon pokemon={pokemon} />
-                  </Col>
-                ))}
-              </Row>
+              {loading && (
+                <div>
+                  <p>Loading</p>
+                </div>
+              )}
 
-              <div className="text-center">
-                <Pagination
-                  pageCount={Math.floor(pokemons.total / maxPerPage)}
-                  initialPage={props.filter.page && props.filter.page - 1}
-                  onPageChange={onPageChange}
-                  forcePage={props.filter.page && props.filter.page - 1}
-                />
-              </div>
+              {pokemons.data.length > 0 && (
+                <>
+                  <Row>
+                    {pokemons.data.map((pokemon) => (
+                      <Col
+                        xs="6"
+                        md="4"
+                        lg="3"
+                        key={pokemon.id}
+                        className="mb-4"
+                      >
+                        <Pokemon pokemon={pokemon} />
+                      </Col>
+                    ))}
+                  </Row>
+
+                  <div className="text-center">
+                    <Pagination
+                      pageCount={Math.floor(pokemons.total / maxPerPage)}
+                      onPageChange={onPageChange}
+                      forcePage={filter.page && filter.page - 1}
+                    />
+                  </div>
+                </>
+              )}
+
+              {pokemons.data.length === 0 && !loading && (
+                <div>
+                  <p>No data found</p>
+                </div>
+              )}
             </>
           ) : (
             <p>Woops</p>
