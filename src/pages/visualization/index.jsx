@@ -57,7 +57,7 @@ const Visualization = () => {
 
           <Row>
             {menu.map((m) => (
-              <Col key={m.title} lg="4" className="mb-4">
+              <Col key={m.title} md="6" lg="4" className="mb-4">
                 <Card bg="secondary" className="text-white">
                   <Card.Header>
                     <Card.Title className="mb-0">{m.title}</Card.Title>

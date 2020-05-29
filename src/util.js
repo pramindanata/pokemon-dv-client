@@ -116,3 +116,34 @@ export const statBuilder = (stats) => {
     value: stats[key],
   }))
 }
+
+export const getStats = () => [
+  {
+    name: 'Power',
+    key: 'power',
+  },
+  {
+    name: 'HP',
+    key: 'hp',
+  },
+  {
+    name: 'Attack',
+    key: 'attack',
+  },
+  {
+    name: 'Defend',
+    key: 'defend',
+  },
+  {
+    name: 'Sp. Attack',
+    key: 'sp-attack',
+  },
+  {
+    name: 'Sp. Defend',
+    key: 'sp-defend',
+  },
+  {
+    name: 'Speed',
+    key: 'speed',
+  },
+]
