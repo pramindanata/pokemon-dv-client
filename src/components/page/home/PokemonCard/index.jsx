@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import { Card, Button } from 'react-bootstrap'
 // import styles from './index.module.css'
 
@@ -34,7 +35,7 @@ const PokemonCard = (props) => {
           </div>
 
           <div className="d-flex mb-3 justify-content-center">
-            {pokemon.type.map((type, i) => (
+            {pokemon.types.map((type, i) => (
               <TypeBadge
                 key={type.name}
                 name={type.name}
@@ -43,9 +44,15 @@ const PokemonCard = (props) => {
             ))}
           </div>
 
-          <Button variant="primary" block className="text-white">
-            See Detail
-          </Button>
+          <Link
+            passHref
+            href="/pokemon/[id]"
+            as={`/pokemon/${pokemon.stringIndex}`}
+          >
+            <Button variant="primary" block className="text-white">
+              See Detail
+            </Button>
+          </Link>
         </Card.Body>
       </Card>
     </div>

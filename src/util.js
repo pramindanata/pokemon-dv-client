@@ -39,3 +39,82 @@ export const getTypeColor = (type) => {
 
   return colors[type.toLowerCase()]
 }
+
+export const hexToRGB = (h, a = 1) => {
+  let r = 0
+  let g = 0
+  let b = 0
+
+  // 3 digits
+  if (h.length === 4) {
+    r = '0x' + h[1] + h[1]
+    g = '0x' + h[2] + h[2]
+    b = '0x' + h[3] + h[3]
+
+    // 6 digits
+  } else if (h.length === 7) {
+    r = '0x' + h[1] + h[2]
+    g = '0x' + h[3] + h[4]
+    b = '0x' + h[5] + h[6]
+  }
+
+  return `rgb(${+r},${+g},${+b},${a})`
+}
+
+export const genTypeBG = (types) => {
+  let background = null
+
+  if (types.length === 1) {
+    background = hexToRGB(getTypeColor(types[0].name), 0.6)
+  } else {
+    const total = types.length
+    const string = types
+      .map(
+        (type) => `${hexToRGB(getTypeColor(type.name), 0.6)} ${100 / total}%`,
+      )
+      .join(',')
+    background = `linear-gradient(90deg, ${string})`
+  }
+
+  console.log(background)
+
+  return background
+}
+
+export const statBuilder = (stats) => {
+  const statDict = {
+    power: {
+      name: 'Power',
+      max: 780,
+    },
+    hp: {
+      name: 'HP',
+      max: 255,
+    },
+    attack: {
+      name: 'Attack',
+      max: 190,
+    },
+    defend: {
+      name: 'Defend',
+      max: 230,
+    },
+    speed: {
+      name: 'Speed',
+      max: 180,
+    },
+    spAttack: {
+      name: 'Sp. Attack',
+      max: 194,
+    },
+    spDefend: {
+      name: 'Sp. Defend',
+      max: 230,
+    },
+  }
+
+  return Object.keys(stats).map((key) => ({
+    ...statDict[key],
+    value: stats[key],
+  }))
+}

@@ -1,0 +1,56 @@
+.pokemon-img {
+  height: 350px;
+  width: 350px;
+}
+
+.stat-label {
+  text-align: left;
+}
+
+.stat-label {
+  flex: 1;
+}
+
+.stat-value {
+  flex: 3;
+}
+
+@media (min-width: 576px) {
+  .stat-label {
+    flex: 2;
+  }
+
+  .stat-value {
+    flex: 4;
+  }
+}
+
+@media (min-width: 768px) {
+  .stat-label {
+    flex: 1;
+  }
+
+  .stat-value {
+    flex: 4;
+  }
+}
+
+@media (min-width: 992px) {
+  .stat-label {
+    flex: 1;
+  }
+
+  .stat-value {
+    flex: 5;
+  }
+}
+
+@media (min-width: 1200px) {
+  .stat-label {
+    flex: 1;
+  }
+
+  .stat-value {
+    flex: 6;
+  }
+}

@@ -11,3 +11,7 @@ export const getPokemons = (filter) => {
     params: filter,
   })
 }
+
+export const getPokemon = (stringIndex) => {
+  return axios(`${url}/api/pokemon/${stringIndex}`)
+}
