@@ -29,6 +29,10 @@ const Navigation = () => {
               <Link href="/visualization" passHref>
                 <Nav.Link>Data Visualization</Nav.Link>
               </Link>
+
+              <Link href="/about" passHref>
+                <Nav.Link>About</Nav.Link>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
