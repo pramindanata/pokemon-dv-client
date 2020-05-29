@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
-import Nav from './Nav'
-import Footer from './Footer'
+import Nav from '~/components/shared/Nav'
+import Footer from '~/components/shared/Footer'
 
 const Layout = (props) => {
   return (

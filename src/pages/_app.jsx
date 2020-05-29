@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import '../assets/index.scss'
+import '~/assets/index.scss'
 
 const App = ({ Component, pageProps }) => {
   return <Component {...pageProps} />

@@ -76,8 +76,6 @@ export const genTypeBG = (types) => {
     background = `linear-gradient(90deg, ${string})`
   }
 
-  console.log(background)
-
   return background
 }
 

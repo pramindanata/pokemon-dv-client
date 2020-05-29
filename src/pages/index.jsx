@@ -4,14 +4,14 @@ import Router, { useRouter } from 'next/router'
 import qs from 'qs'
 import PropTypes from 'prop-types'
 
-import Layout from '../components/shared/Layout'
-import Head from '../components/shared/Head'
-import Filter from '../components/page/home/Filter'
-import Pokemon from '../components/page/home/PokemonCard'
-import Pagination from '../components/shared/Pagination'
-import Error from '../components/shared/Error'
+import Layout from '~/components/shared/Layout'
+import Head from '~/components/shared/Head'
+import Filter from '~/components/page/home/Filter'
+import Pokemon from '~/components/page/home/PokemonCard'
+import Pagination from '~/components/shared/Pagination'
+import Error from '~/components/shared/Error'
 
-import { getPokemons as getPokemonsReq } from '../request/pokemon'
+import { getPokemons as getPokemonsReq } from '~/request/pokemon'
 
 const Home = (props) => {
   const maxPerPage = 24

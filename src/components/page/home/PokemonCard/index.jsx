@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { Card, Button } from 'react-bootstrap'
 // import styles from './index.module.css'
 
-import TypeBadge from '../../../shared/PokemonTypeBadge'
+import TypeBadge from '~/components/shared/PokemonTypeBadge'
 
-import { getImageUrl } from '../../../../util'
+import { getImageUrl } from '~/util'
 
 const PokemonCard = (props) => {
   const { className, pokemon, ...rest } = props

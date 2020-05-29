@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap'
 
-import Layout from '../components/shared/Layout'
-import Head from '../components/shared/Head'
+import Layout from '~/components/shared/Layout'
+import Head from '~/components/shared/Head'
 
 const About = () => {
   return (

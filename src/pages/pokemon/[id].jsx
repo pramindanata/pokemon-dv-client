@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import { Container, Image, ProgressBar } from 'react-bootstrap'
-import { getPokemon } from '../../request/pokemon'
-import { getImageUrl, getTypeColor, genTypeBG, statBuilder } from '../../util'
+import { getPokemon } from '~/request/pokemon'
+import { getImageUrl, getTypeColor, genTypeBG, statBuilder } from '~/util'
 
-import Layout from '../../components/shared/Layout'
-import Head from '../../components/shared/Head'
-import TypeBadge from '../../components/shared/PokemonTypeBadge'
-import Error from '../../components/shared/Error'
+import Layout from '~/components/shared/Layout'
+import Head from '~/components/shared/Head'
+import TypeBadge from '~/components/shared/PokemonTypeBadge'
+import Error from '~/components/shared/Error'
 
 import styles from './index.module.css'
 

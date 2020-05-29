@@ -1,8 +1,8 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import Link from 'next/link'
 
-import Layout from '../../components/shared/Layout'
-import Head from '../../components/shared/Head'
+import Layout from '~/components/shared/Layout'
+import Head from '~/components/shared/Head'
 
 const Visualization = () => {
   const menu = [

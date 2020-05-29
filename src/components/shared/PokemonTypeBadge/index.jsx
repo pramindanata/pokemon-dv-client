@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import { getTypeColor } from '../../../util'
+import { getTypeColor } from '~/util'
 
 const PokemonTypeBadge = (props) => {
   const { className, name, ...rest } = props
