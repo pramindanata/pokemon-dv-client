@@ -8,6 +8,7 @@ import Error from '~/components/shared/Error'
 import Filter from '~/components/shared/GenerationFilter'
 import Sidebar from '~/components/page/visualization/top/Sidebar'
 import Top3 from '~/components/page/visualization/top/Top3'
+import Top10 from '~/components/page/visualization/top/Top10'
 
 import { getStats } from '~/util'
 import { getTop } from '~/request/top'
@@ -71,7 +72,12 @@ const TopDetail = (props) => {
 
                   {loading && <p>Loading...</p>}
 
-                  {!loading && <Top3 pokemons={graphData.top3} />}
+                  {!loading && (
+                    <>
+                      <Top3 className="mb-4" pokemons={graphData.top3} />
+                      <Top10 pokemons={graphData.top10} />
+                    </>
+                  )}
                 </div>
               </Col>
             </Row>

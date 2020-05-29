@@ -10,11 +10,13 @@ const Top3 = (props) => {
 
   return (
     <div className={classes} {...rest}>
-      <h5 className="mb-3">Top 3</h5>
+      <h5>Top 3</h5>
+
+      <hr className="mb-3" />
 
       <Row>
         {pokemons.map((pokemon, i) => (
-          <Col sm="6" md="4" key={pokemon.id}>
+          <Col sm="6" md="6" lg="4" key={pokemon.id}>
             <PokemonCard
               pokemon={pokemon}
               top={
