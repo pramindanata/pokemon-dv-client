@@ -9,8 +9,11 @@ const About = () => {
       <Head title="About" />
       <Layout>
         <Container className="py-4">
+          <div className="text-primary my-4 text-center">
+            <h3>About</h3>
+          </div>
+
           <div>
-            <h1>About</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. In esse
               iure provident, quaerat saepe ad odio nam tenetur, error
