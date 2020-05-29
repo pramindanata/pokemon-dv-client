@@ -174,6 +174,7 @@ export async function getServerSideProps(ctx) {
       pokemons,
       filter,
       error,
+      key: new Date().getTime(),
     },
   }
 }
