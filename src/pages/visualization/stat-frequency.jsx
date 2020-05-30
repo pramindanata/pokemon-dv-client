@@ -1,15 +1,26 @@
 import PropTypes from 'prop-types'
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 
 import Layout from '~/components/shared/Layout'
 import Head from '~/components/shared/Head'
 import Error from '~/components/shared/Error'
 import Filter from '~/components/shared/GenerationFilter'
+import Chart from '~/components/page/visualization/stat-frequency/Chart'
+
 import { getStats } from '~/util'
 import { getStat as getStatFreq } from '~/request/frequency'
 
-const stats = getStats().map((stat) => stat.key)
+const stats = getStats()
+const alteredStats = [
+  stats[1],
+  stats[6],
+  stats[2],
+  stats[3],
+  stats[4],
+  stats[5],
+  stats[0],
+]
 
 const StatFrequency = (props) => {
   const { graphData: initialGraphData, error } = props
@@ -27,10 +38,10 @@ const StatFrequency = (props) => {
     if (submit && !loading) {
       setLoading(true)
 
-      Promise.all(stats.map((stat) => getStatFreq(stat, filter)))
+      Promise.all(stats.map((stat) => getStatFreq(stat.key, filter)))
         .then((res) => {
           const newGraphData = stats.reduce((p, c, i) => {
-            p[c] = res[i].data
+            p[c.key] = res[i].data
 
             return p
           }, {})
@@ -61,6 +72,26 @@ const StatFrequency = (props) => {
                 onSubmit={onSubmit}
                 initial={filter.generation}
               />
+
+              <Row>
+                {alteredStats.map((s, i) => {
+                  if (i >= alteredStats.length - 1) return
+
+                  return (
+                    <Col md="6" key={s.key} className="mb-4">
+                      <Chart stat={s} data={graphData[s.key]} />
+                    </Col>
+                  )
+                })}
+
+                <Col md="12">
+                  <Chart
+                    className="mb-4"
+                    stat={alteredStats[alteredStats.length - 1]}
+                    data={graphData[alteredStats[alteredStats.length - 1].key]}
+                  />
+                </Col>
+              </Row>
             </>
           ) : (
             <Error data={error} />
@@ -85,10 +116,10 @@ export async function getServerSideProps(ctx) {
       generation: 'all',
     }
     const results = await Promise.all(
-      stats.map((stat) => getStatFreq(stat, filter)),
+      stats.map((stat) => getStatFreq(stat.key, filter)),
     )
     graphData = stats.reduce((p, c, i) => {
-      p[c] = results[i].data
+      p[c.key] = results[i].data
 
       return p
     }, {})

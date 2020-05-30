@@ -71,12 +71,10 @@ export const redraw = (svg, data) => {
     .enter()
     .append('rect')
     .attr('class', 'bar')
-    .style('fill', '#ff7979')
     // .attr('x', (d) => x(d.value))
     .attr('y', (d) => y(d.name))
     .attr('width', 0)
     .attr('height', y.bandwidth())
-    .attr('desc', 'yeet')
     .on('mouseover', tip.show)
     .on('mouseout', tip.hide)
 
