@@ -157,3 +157,7 @@ export const debounce = (time, cb) => {
     timer = setTimeout(cb, time, e)
   }
 }
+
+export const getSvgWrapperWidth = (selector) => {
+  return document.querySelector(selector).offsetWidth
+}

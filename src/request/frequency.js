@@ -7,3 +7,9 @@ export const getStat = (id, filter) => {
     params: filter,
   })
 }
+
+export const getType = (id, filter) => {
+  return axios(`${url}/api/frequency/type/${id}`, {
+    params: filter,
+  })
+}

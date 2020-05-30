@@ -86,6 +86,15 @@ export const initialDraw = (svg, data, canvasWidth, xLabel, update = false) => {
 
     bar.exit().remove()
 
+    bar
+      .enter()
+      .append('g')
+      .attr('class', 'bar')
+      .append('rect')
+      .attr('class', 'rect')
+
+    bar = svg.selectAll('.bar')
+
     svg.selectAll('.x-axis').call(setAxisXTicks(x, -chartSize.height))
     svg.selectAll('.y-axis').call(setAxisYTicks(y, -chartW, maxBins))
   } else {

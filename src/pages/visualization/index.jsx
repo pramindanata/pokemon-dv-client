@@ -19,7 +19,7 @@ const Visualization = () => {
     {
       title: 'Type Frequency',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/visualization/top',
+      href: '/visualization/type-frequency',
     },
     {
       title: 'Stat Frequency',
