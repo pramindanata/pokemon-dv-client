@@ -27,9 +27,9 @@ export const canvasSize = {
 
 export const margin = {
   top: 10,
-  bottom: 50,
+  bottom: 40,
   right: 10,
-  left: 50,
+  left: 40,
 }
 
 export const chartSize = {
@@ -37,7 +37,7 @@ export const chartSize = {
   height: canvasSize.height - margin.top - margin.bottom,
 }
 
-export const initialDraw = (svg, data, canvasWidth, update = false) => {
+export const initialDraw = (svg, data, canvasWidth, xLabel, update = false) => {
   const chartW = canvasWidth - margin.left - margin.right
   const [min, max] = extent(data)
   const thresholds = range(min, max, (max - min) / 50)
@@ -71,6 +71,15 @@ export const initialDraw = (svg, data, canvasWidth, update = false) => {
 
   let bar = null
 
+  const tip = d3Tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html((d) => {
+      return `<strong>Frequency:</strong> <span style='color:red'>${d.length}</span>`
+    })
+
+  svg.call(tip)
+
   if (update) {
     // Updating
     bar = svg.selectAll('.bar').data(bins)
@@ -79,13 +88,6 @@ export const initialDraw = (svg, data, canvasWidth, update = false) => {
 
     svg.selectAll('.x-axis').call(setAxisXTicks(x, -chartSize.height))
     svg.selectAll('.y-axis').call(setAxisYTicks(y, -chartW, maxBins))
-
-    bar
-      .attr('transform', (d) => `translate(${x(d.x0)}, ${y(d.length)})`)
-      .select('rect')
-      .attr('x', 1)
-      .attr('height', (d) => chartSize.height - y(d.length))
-      .style('fill', '#69b3a2')
   } else {
     svg
       .append('g')
@@ -101,28 +103,13 @@ export const initialDraw = (svg, data, canvasWidth, update = false) => {
       .call(setAxisYTicks(y, -chartW, maxBins))
 
     bar = svg
-      .append('g')
-      .selectAll('rect')
+      .selectAll('.bar')
       .data(bins)
       .enter()
       .append('g')
       .attr('class', 'bar')
-      .attr('transform', (d) => `translate(${x(d.x0)}, ${y(d.length)})`)
 
-    bar
-      .append('rect')
-      .attr('x', 1)
-      .attr('width', (d) => {
-        const width = x(d.x1) - x(d.x0) - 1
-
-        if (width < 0) {
-          return 0
-        }
-
-        return width
-      })
-      .attr('height', (d) => chartSize.height - y(d.length))
-      .style('fill', '#69b3a2')
+    bar.append('rect').attr('class', 'rect')
 
     svg
       .append('text')
@@ -131,7 +118,7 @@ export const initialDraw = (svg, data, canvasWidth, update = false) => {
         'transform',
         `translate(${chartW / 2}, ${canvasSize.height - margin.bottom / 3})`,
       )
-      .text('Values')
+      .text(xLabel)
 
     svg
       .append('text')
@@ -144,4 +131,29 @@ export const initialDraw = (svg, data, canvasWidth, update = false) => {
       )
       .text('Frequency')
   }
+
+  bar
+    .select('rect')
+    .attr('transform', (d) => `translate(${x(d.x0)}, ${chartSize.height})`)
+    .attr('x', 1)
+    .attr('y', 0)
+    .attr('width', (d) => {
+      const width = x(d.x1) - x(d.x0) - 1
+
+      if (width < 0) {
+        return 0
+      }
+
+      return width
+    })
+    .attr('height', 0)
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
+
+  bar
+    .select('rect')
+    .transition()
+    .duration(800)
+    .attr('y', (d) => -(chartSize.height - y(d.length)))
+    .attr('height', (d) => chartSize.height - y(d.length))
 }

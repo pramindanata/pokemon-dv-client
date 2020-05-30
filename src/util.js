@@ -147,3 +147,13 @@ export const getStats = () => [
     key: 'speed',
   },
 ]
+
+export const debounce = (time, cb) => {
+  let timer
+
+  return (e) => {
+    if (timer) clearTimeout(timer)
+
+    timer = setTimeout(cb, time, e)
+  }
+}

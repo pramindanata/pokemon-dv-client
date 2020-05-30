@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useEffect, useState, useRef } from 'react'
 import { select } from 'd3'
 import { canvasSize, initialDraw, margin } from './chart'
+import { debounce } from '~/util'
 // import styles from './index.module.css'
 
 const Chart = (props) => {
@@ -12,11 +13,14 @@ const Chart = (props) => {
   const classes = classnames(className)
   const svgRef = useRef(null)
   const [pageReady, setPageReady] = useState(false)
+  const [firstFetch, setFirstFetch] = useState(true)
 
   useEffect(() => {
     if (pageReady && svgRef.current !== null) {
       const width = parseInt(select(`.${selector}`).style('width'), 10)
-      initialDraw(svgRef.current, data.data, width, true)
+
+      initialDraw(svgRef.current, data.data, width, stat.name, !firstFetch)
+      setFirstFetch(false)
     }
   }, [data, pageReady])
 
@@ -35,26 +39,24 @@ const Chart = (props) => {
 
     svgRef.current = svg
 
-    initialDraw(svgRef.current, data.data, width)
     setPageReady(true)
 
-    // const resizeHandler = () => {
-    //   //
-    // }
+    const resizeHandler = debounce(250, () => {
+      const width = parseInt(select(`.${selector}`).style('width'), 10)
 
-    // window.addEventListener('resize', resizeHandler)
+      initialDraw(svgRef.current, data.data, width, stat.name, true)
+    })
 
-    // return () => {
-    //   window.removeEventListener('resize', resizeHandler)
-    // }
+    window.addEventListener('resize', resizeHandler)
+
+    return () => {
+      window.removeEventListener('resize', resizeHandler)
+    }
   }, [])
 
   return (
     <div className={classes} {...rest}>
       <Card>
-        <Card.Header>
-          <Card.Title className="mb-0">{stat.name}</Card.Title>
-        </Card.Header>
         <Card.Body>
           <div className={`${selector} chart`}></div>
         </Card.Body>

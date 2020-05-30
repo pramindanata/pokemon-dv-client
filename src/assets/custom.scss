@@ -13,7 +13,11 @@
   stroke-opacity: 0.5;
 }
 
-.top-x-chart .bar:hover {
+.chart .bar .rect {
+  fill: #ff7979
+}
+
+.chart .bar .rect:hover {
   fill: #eb4d4b!important
 }
 
