@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
-import * as d3 from 'd3'
+import { select } from 'd3'
 import { canvasSize, redraw, margin } from './chart'
 // import styles from './index.module.css'
 
@@ -22,8 +22,7 @@ const Top10 = (props) => {
       document.querySelector('#top-10-bar-chart svg').remove()
     } catch (err) {}
 
-    const svg = d3
-      .select('#top-10-bar-chart')
+    const svg = select('#top-10-bar-chart')
       .append('svg')
       .attr('width', canvasSize.width)
       .attr('height', canvasSize.height)

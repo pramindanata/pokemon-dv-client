@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { select, axisBottom, axisLeft, max, scaleLinear, scaleBand } from 'd3'
 import d3Tip from 'd3-tip'
 
 export const canvasSize = {
@@ -22,8 +22,7 @@ export const redraw = (svg, data) => {
   data.reverse()
 
   function setAxisTick(axis, size) {
-    return d3
-      .axisBottom()
+    return axisBottom()
       .scale(axis)
       .tickFormat((d) => d)
       .tickSize(size)
@@ -36,18 +35,16 @@ export const redraw = (svg, data) => {
       return `<strong>Stat:</strong> <span style='color:red'>${d.stat}</span>`
     })
 
-  const x = d3
-    .scaleLinear()
-    .domain([0, d3.max(data.map((d) => d.stat))])
+  const x = scaleLinear()
+    .domain([0, max(data.map((d) => d.stat))])
     .range([0, chartSize.width])
 
-  const y = d3
-    .scaleBand()
+  const y = scaleBand()
     .domain(data.map((d) => d.name))
     .range([chartSize.height, 0])
     .padding(0.1)
 
-  if (d3.select('.x-axis').empty()) {
+  if (select('.x-axis').empty()) {
     svg
       .append('g')
       .attr('class', 'x-axis')
@@ -60,10 +57,10 @@ export const redraw = (svg, data) => {
       .append('g')
       .style('font-size', '12px')
       .attr('class', 'y-axis')
-      .call(d3.axisLeft(y))
+      .call(axisLeft(y))
   } else {
     svg.selectAll('.x-axis').call(setAxisTick(x, -chartSize.height))
-    svg.selectAll('.y-axis').call(d3.axisLeft(y))
+    svg.selectAll('.y-axis').call(axisLeft(y))
   }
 
   svg.call(tip)

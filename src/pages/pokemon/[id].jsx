@@ -57,6 +57,10 @@ const PokemonDetail = (props) => {
                   ))}
                 </div>
 
+                <div className="text-sm text-muted mb-2">
+                  Generation #{pokemon.generation} Pokemon
+                </div>
+
                 <div>
                   <p>{pokemon.description}</p>
                 </div>

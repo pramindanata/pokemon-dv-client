@@ -9,37 +9,37 @@ const Visualization = () => {
     {
       title: 'Data proportion',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/proportion',
+      href: '/visualization/proportion',
     },
     {
       title: 'Top X Pokemon',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/top',
+      href: '/visualization/top',
     },
     {
       title: 'Type Frequency',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/top',
+      href: '/visualization/top',
     },
     {
       title: 'Stat Frequency',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/top',
+      href: '/visualization/stat-frequency',
     },
     {
       title: 'Average Stat per Generation',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/top',
+      href: '/visualization/top',
     },
     {
       title: 'Stat Distribution',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/top',
+      href: '/visualization/top',
     },
     {
       title: 'Legendary VS Non Legendary Stat Density',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/top',
+      href: '/visualization/top',
     },
   ]
 
@@ -64,7 +64,7 @@ const Visualization = () => {
                   </Card.Header>
                   <Card.Body>
                     <p>{m.description}</p>
-                    <Link href="/visualization/top" passHref>
+                    <Link href={m.href} passHref>
                       <Button block variant="dark">
                         See Detail
                       </Button>
