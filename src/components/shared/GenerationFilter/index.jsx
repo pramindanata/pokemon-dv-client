@@ -27,7 +27,7 @@ const GenerationFilter = (props) => {
         <Card.Body className="pb-1">
           <Form onSubmit={submit}>
             <Row>
-              <Col md="4" lg="4">
+              <Col md="4" lg="3">
                 <Form.Group>
                   <Form.Label>Select Generation</Form.Label>
                   <Form.Control

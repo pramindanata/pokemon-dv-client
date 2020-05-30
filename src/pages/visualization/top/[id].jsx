@@ -14,15 +14,9 @@ import { getStats } from '~/util'
 import { getTop } from '~/request/top'
 
 const TopDetail = (props) => {
-  const {
-    id,
-    stat,
-    error,
-    graphData: initialGraphData,
-    filter: initialFilter,
-  } = props
+  const { id, stat, error, graphData: initialGraphData } = props
   const [graphData, setGraphData] = useState(initialGraphData)
-  const [filter, setFilter] = useState(initialFilter)
+  const [filter, setFilter] = useState('all')
   const [loading, setLoading] = useState(false)
   const [submit, setSubmit] = useState(false)
 
@@ -129,7 +123,6 @@ export async function getServerSideProps(ctx) {
       id,
       stat: stat ?? null,
       graphData,
-      filter: ctx.query,
       key: new Date().getTime(),
     },
   }
