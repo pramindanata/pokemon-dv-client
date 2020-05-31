@@ -34,7 +34,7 @@ const Visualization = () => {
     {
       title: 'Stat Distribution',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/visualization/top',
+      href: '/visualization/stat-distribution',
     },
     {
       title: 'Legendary VS Non Legendary Stat Density',

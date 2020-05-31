@@ -21,6 +21,14 @@
   fill: #eb4d4b!important
 }
 
+.chart rect.bar {
+  fill: #ff7979
+}
+
+.chart rect.bar:hover {
+  fill: #eb4d4b!important
+}
+
 .d3-tip {
   line-height: 1;
   font-weight: bold;
