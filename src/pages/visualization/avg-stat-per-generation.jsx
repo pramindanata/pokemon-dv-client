@@ -1,14 +1,21 @@
 import PropTypes from 'prop-types'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 
 import Layout from '~/components/shared/Layout'
 import Head from '~/components/shared/Head'
 import Error from '~/components/shared/Error'
-import Chart from '~/components/page/visualization/stat-generation-avg/Chart'
 
 import { getStats } from '~/util'
 import { getStatAVG } from '~/request/frequency'
+
+const Chart = dynamic(
+  () => import('~/components/page/visualization/stat-generation-avg/Chart'),
+  {
+    ssr: false,
+  },
+)
 
 const stats = getStats()
 const alteredStats = [

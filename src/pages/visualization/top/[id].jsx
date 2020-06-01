@@ -1,17 +1,26 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 
 import Layout from '~/components/shared/Layout'
 import Head from '~/components/shared/Head'
 import Error from '~/components/shared/Error'
 import Filter from '~/components/shared/GenerationFilter'
 import Sidebar from '~/components/page/visualization/top/Sidebar'
-import Top3 from '~/components/page/visualization/top/Top3'
-import Top10 from '~/components/page/visualization/top/Top10'
 
 import { getStats } from '~/util'
 import { getTop } from '~/request/top'
+
+const Top3 = dynamic(() => import('~/components/page/visualization/top/Top3'), {
+  ssr: false,
+})
+const Top10 = dynamic(
+  () => import('~/components/page/visualization/top/Top10'),
+  {
+    ssr: false,
+  },
+)
 
 const TopDetail = (props) => {
   const { id, stat, error, graphData: initialGraphData } = props

@@ -1,5 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import PropTypes from 'prop-types'
+import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 
 import Layout from '~/components/shared/Layout'
@@ -7,10 +8,16 @@ import Head from '~/components/shared/Head'
 import Error from '~/components/shared/Error'
 import Filter from '~/components/shared/GenerationFilter'
 import Sidebar from '~/components/page/visualization/stat-distribution/Sidebar'
-import Chart from '~/components/page/visualization/stat-distribution/Chart'
 
 import { getStatPerType } from '~/request/distribution'
 import { getStats } from '~/util'
+
+const Chart = dynamic(
+  () => import('~/components/page/visualization/stat-distribution/Chart'),
+  {
+    ssr: false,
+  },
+)
 
 const StatDistributionDetail = (props) => {
   const { stat, error, graphData: initialGraphData } = props
