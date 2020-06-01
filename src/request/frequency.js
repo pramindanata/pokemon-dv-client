@@ -13,3 +13,7 @@ export const getType = (id, filter) => {
     params: filter,
   })
 }
+
+export const getStatAVG = (id) => {
+  return axios(`${url}/api/frequency/stat/generation-average/${id}`)
+}

@@ -33,7 +33,7 @@ const Sidebar = (props) => {
                 className="cursor-pointer"
                 active={getUrl(stat.key) === router.asPath}
               >
-                Top {stat.name}
+                {stat.name} Distribution
               </ListGroup.Item>
             </Link>
           ))}

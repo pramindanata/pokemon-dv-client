@@ -18,27 +18,36 @@
 }
 
 .chart .bar .rect {
-  fill: #ff7979
+  fill: #ff7979;
 }
 
 .chart .bar .rect:hover {
-  fill: #eb4d4b!important
+  fill: #eb4d4b!important;
 }
 
 .chart rect.bar {
-  fill: #ff7979
+  fill: #ff7979;
 }
 
 .chart rect.bar:hover {
-  fill: #eb4d4b!important
+  fill: #eb4d4b!important;
 }
 
 .chart path.density-a-path:hover {
-  fill: #130f40!important
+  fill: #130f40!important;
 }
 
 .chart path.density-b-path:hover {
-  fill: #eb4d4b!important
+  fill: #eb4d4b!important;
+}
+
+.avg-stat-chart path.line:hover {
+  stroke: #eb4d4b!important;
+  stroke-width: 2;
+}
+
+.avg-stat-chart circle.jitter:hover {
+  fill: #130f40!important;
 }
 
 .d3-tip {

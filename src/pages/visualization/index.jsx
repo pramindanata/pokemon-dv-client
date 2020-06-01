@@ -29,7 +29,7 @@ const Visualization = () => {
     {
       title: 'Average Stat per Generation',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/visualization/top',
+      href: '/visualization/avg-stat-per-generation',
     },
     {
       title: 'Stat Distribution',
