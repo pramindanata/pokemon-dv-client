@@ -7,3 +7,9 @@ export const getStatPerType = (id, filter) => {
     params: filter,
   })
 }
+
+export const getLegendaryVNonStat = (id, filter) => {
+  return axios(`${url}/api/distribution/legendary-v-non/${id}`, {
+    params: filter,
+  })
+}

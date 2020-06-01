@@ -41,6 +41,7 @@ const Home = (props) => {
       ...filter,
       page: selectedItem.selected + 1,
     }
+    window.scrollTo(0, 0)
     updateUrl(newFilter)
   }
 

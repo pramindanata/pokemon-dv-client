@@ -1,3 +1,7 @@
+#__next {
+  min-height: 100vh;
+}
+
 #__next > div:first-child {
   display: flex;
   flex-direction: column;
@@ -26,6 +30,14 @@
 }
 
 .chart rect.bar:hover {
+  fill: #eb4d4b!important
+}
+
+.chart path.density-a-path:hover {
+  fill: #130f40!important
+}
+
+.chart path.density-b-path:hover {
   fill: #eb4d4b!important
 }
 

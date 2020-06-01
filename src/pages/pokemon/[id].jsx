@@ -58,7 +58,7 @@ const PokemonDetail = (props) => {
                 </div>
 
                 <div className="text-sm text-muted mb-2">
-                  #{pokemon.generation} Generation
+                  #{pokemon.generation} Generation Pokemon
                 </div>
 
                 <div>
