@@ -2,7 +2,7 @@ import { Card } from 'react-bootstrap'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import { useEffect, useState, useRef } from 'react'
-import { select } from 'd3'
+import * as d3 from 'd3'
 import { canvasSize, draw, margin } from './chart'
 import { debounce, getSvgWrapperWidth } from '~/util'
 // import styles from './index.module.css'
@@ -30,7 +30,8 @@ const Chart = (props) => {
     } catch (err) {}
 
     const width = getSvgWrapperWidth(`.${selector}`)
-    const svg = select(`.${selector}`)
+    const svg = d3
+      .select(`.${selector}`)
       .append('svg')
       .attr('width', width)
       .attr('height', canvasSize.height)
@@ -44,13 +45,14 @@ const Chart = (props) => {
     const resizeHandler = debounce(250, () => {
       const width = getSvgWrapperWidth(`.${selector}`)
 
-      select(`.${selector} svg`).attr('width', width)
+      d3.select(`.${selector} svg`).attr('width', width)
       draw(svgRef.current, data.data, width, true)
     })
 
     window.addEventListener('resize', resizeHandler)
 
     return () => {
+      d3.selectAll('.d3-tip').remove()
       window.removeEventListener('resize', resizeHandler)
     }
   }, [])
