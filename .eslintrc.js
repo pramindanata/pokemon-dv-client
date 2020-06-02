@@ -11,22 +11,19 @@ module.exports = {
   ],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
   },
-  parser: "babel-eslint",
-  plugins: [
-    'react',
-    'prettier'
-  ],
+  parser: 'babel-eslint',
+  plugins: ['react', 'prettier'],
   rules: {
     'no-console': 1,
-    'react/react-in-jsx-scope': 0
+    'react/react-in-jsx-scope': 0,
   },
 }
