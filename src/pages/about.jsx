@@ -15,11 +15,72 @@ const About = () => {
 
           <div>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. In esse
-              iure provident, quaerat saepe ad odio nam tenetur, error
-              architecto dicta? Magnam distinctio totam accusantium, culpa
-              recusandae odit excepturi delectus.
+              Explore and see Pokemon data from #1 to #6 generation of Pokemons.
             </p>
+
+            <div>
+              <h5>Data Source</h5>
+
+              <ul>
+                <li>
+                  Base:{' '}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://www.kaggle.com/abcsds/pokemon"
+                  >
+                    kaggle.com
+                  </a>
+                </li>
+                <li>
+                  Pokemon images:{' '}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://id.portal-pokemon.com/play/pokedex"
+                  >
+                    portal-pokemon.com
+                  </a>
+                </li>
+                <li>
+                  Pokemon descriptions:{' '}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://www.pokemon.com/us/pokedex"
+                  >
+                    pokemon.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h5>Source Code</h5>
+
+              <ul>
+                <li>
+                  Client side:{' '}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://github.com/pramindanata/pokemon-dv-client"
+                  >
+                    github.com
+                  </a>
+                </li>
+                <li>
+                  Server side / API:{' '}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://github.com/pramindanata/pokemon-dv-server"
+                  >
+                    github.com
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </Container>
       </Layout>

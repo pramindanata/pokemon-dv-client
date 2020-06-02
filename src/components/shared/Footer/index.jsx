@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="bg-dark text-light">
       <Container className="text-center py-4">
         <div>
-          <span className={styles.copyright}>&copy;</span> {year} cool_snek
+          <span className={styles.copyright}>&copy;</span> {year} pramindanata
         </div>
         <div className="text-sm text-muted">
           Developed by <span>Eksa Pramindanata</span>
