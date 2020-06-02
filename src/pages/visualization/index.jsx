@@ -7,11 +7,6 @@ import Head from '~/components/shared/Head'
 const Visualization = () => {
   const menu = [
     {
-      title: 'Data proportion',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/visualization/proportion',
-    },
-    {
       title: 'Top X Pokemon',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
       href: '/visualization/top',
