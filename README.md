@@ -12,7 +12,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-**Make sure pokemon-dv-server runs first !**
+**Make sure [pokemon-dv-server](https://github.com/pramindanata/pokemon-dv-server) runs first !**
 
 First, create `.env` file based from `.env.example`. Then run development server by running these command:
 
