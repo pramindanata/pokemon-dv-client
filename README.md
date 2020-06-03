@@ -4,6 +4,12 @@ This project contains client side for **PokeDV App**. For the server side please
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Preview
+
+![Homepage](/preview/home.png)
+![Pokemon Detail](/preview/slow-bro.png)
+![Attack Distribution Chart](/preview/chart.png)
+
 ## Getting Started
 
 **Make sure pokemon-dv-server runs first !**
