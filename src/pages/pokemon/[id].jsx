@@ -66,7 +66,7 @@ const PokemonDetail = (props) => {
                 </div>
 
                 <div>
-                  <h5>Base Stats</h5>
+                  <h5>Base Stat</h5>
 
                   <div>
                     {stats.map((stat) => (

@@ -8,33 +8,34 @@ const Visualization = () => {
   const menu = [
     {
       title: 'Top X Pokemon',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      description: 'Show top 3 and top 10 Pokemons on each stat.',
       href: '/visualization/top',
     },
     {
       title: 'Type Frequency',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      description: 'Show frequency of primary and secondary Pokemon types.',
       href: '/visualization/type-frequency',
     },
     {
       title: 'Stat Frequency',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      description: 'Show frequency of each Pokemon stat.',
       href: '/visualization/stat-frequency',
     },
     {
       title: 'Average Stat per Generation',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      description: 'Show average of each stat per Pokemon generation.',
       href: '/visualization/avg-stat-per-generation',
     },
     {
       title: 'Stat Distribution',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      description: 'Show distribution of each Pokemon stat.',
       href: '/visualization/stat-distribution',
     },
     {
-      title: 'Legendary VS Non Legendary Stat Density',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      href: '/visualization/legendary-v-non-density',
+      title: 'Legendary VS Non Stat Dist',
+      description:
+        'Show distribution of legendary vs non legendary Pokemon stat.',
+      href: '/visualization/legendary-v-non-distribution',
     },
   ]
 

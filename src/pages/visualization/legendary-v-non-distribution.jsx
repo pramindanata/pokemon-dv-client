@@ -12,7 +12,10 @@ import { getStats } from '~/util'
 import { getLegendaryVNonStat } from '~/request/distribution'
 
 const Chart = dynamic(
-  () => import('~/components/page/visualization/legendary-v-non-density/Chart'),
+  () =>
+    import(
+      '~/components/page/visualization/legendary-v-non-distribution/Chart'
+    ),
   {
     ssr: false,
   },
@@ -29,7 +32,7 @@ const alteredStats = [
   stats[0],
 ]
 
-const LegendaryVNonDensity = (props) => {
+const LegendaryVNonDistribution = (props) => {
   const { graphData: initialGraphData, error } = props
   const [filter, setFilter] = useState({ generation: 'all' })
   const [submit, setSubmit] = useState(false)
@@ -65,12 +68,14 @@ const LegendaryVNonDensity = (props) => {
   return (
     <>
       <Head
-        title={error ? 'Whoops' : 'Legendary VS Non Legendary Stat Density'}
+        title={
+          error ? 'Whoops' : 'Legendary VS Non Legendary Stat Distribution'
+        }
       />
       <Layout>
         <Container className="py-4">
           <div className="text-primary my-4 text-center">
-            <h3>Legendary VS Non Legendary Stat Density</h3>
+            <h3>Legendary VS Non Legendary Stat Distribution</h3>
           </div>
 
           {!error ? (
@@ -111,7 +116,7 @@ const LegendaryVNonDensity = (props) => {
   )
 }
 
-LegendaryVNonDensity.propTypes = {
+LegendaryVNonDistribution.propTypes = {
   graphData: PropTypes.object,
   error: PropTypes.object,
 }
@@ -147,4 +152,4 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-export default LegendaryVNonDensity
+export default LegendaryVNonDistribution
