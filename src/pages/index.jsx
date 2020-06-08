@@ -131,7 +131,7 @@ const Home = (props) => {
 
                   <div className="text-center">
                     <Pagination
-                      pageCount={Math.floor(pokemons.total / maxPerPage)}
+                      pageCount={Math.ceil(pokemons.total / maxPerPage)}
                       onPageChange={onPageChange}
                       forcePage={filter.page && filter.page - 1}
                     />
