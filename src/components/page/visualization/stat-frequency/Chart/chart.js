@@ -37,7 +37,7 @@ export const chartSize = {
   height: canvasSize.height - margin.top - margin.bottom,
 }
 
-export const initialDraw = (svg, data, canvasWidth, xLabel, update = false) => {
+export const draw = (svg, data, canvasWidth, xLabel, update = false) => {
   const chartW = canvasWidth - margin.left - margin.right
   const [min, max] = extent(data)
   const thresholds = range(min, max, (max - min) / 50)

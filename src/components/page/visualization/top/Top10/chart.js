@@ -18,7 +18,7 @@ export const chartSize = {
   height: canvasSize.height - margin.top - margin.bottom,
 }
 
-export const redraw = (svg, data) => {
+export const draw = (svg, data) => {
   data.reverse()
 
   function setAxisTick(axis, size) {

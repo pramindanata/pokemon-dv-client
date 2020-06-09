@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
-import { canvasSize, redraw, margin } from './chart'
+import { canvasSize, draw, margin } from './chart'
 // import styles from './index.module.css'
 
 const Top10 = (props) => {
@@ -13,7 +13,7 @@ const Top10 = (props) => {
 
   useEffect(() => {
     if (pageReady && svgRef.current !== null) {
-      redraw(svgRef.current, pokemons)
+      draw(svgRef.current, pokemons)
     }
   }, [pokemons, pageReady])
 
