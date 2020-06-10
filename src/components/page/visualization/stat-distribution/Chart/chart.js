@@ -1,131 +1,124 @@
-import * as d3 from 'd3'
+import {
+  axisBottom,
+  axisLeft,
+  histogram as d3Histogram,
+  scaleLinear,
+  range,
+  extent,
+  format,
+  max as d3Max,
+} from 'd3'
 import d3Tip from 'd3-tip'
 
+function stepper(min, max, step) {
+  const result = []
+  const maxIterate = Math.floor(max / step)
+
+  for (let i = min; i <= maxIterate; i++) {
+    result.push(step * i)
+  }
+
+  return result
+}
+
 export const canvasSize = {
-  height: 800,
+  height: 200,
 }
 
 export const margin = {
   top: 10,
-  bottom: 50,
+  bottom: 40,
   right: 10,
-  left: 80,
+  left: 40,
 }
 
 export const chartSize = {
+  width: canvasSize.width - margin.left - margin.right,
   height: canvasSize.height - margin.top - margin.bottom,
 }
 
-function getJitterData(data) {
-  const flattenData = []
+export const draw = (svg, data, canvasWidth, xLabel, update = false) => {
+  const chartW = canvasWidth - margin.left - margin.right
+  const [min, max] = extent(data)
+  const thresholds = range(min, max, (max - min) / 50)
+  const x = scaleLinear().domain([min, max]).range([0, chartW])
+  const y = scaleLinear().range([chartSize.height, 0])
 
-  for (let i = 0; i < data.length; i++) {
-    const key = data[i].type
-    const values = data[i].values
-
-    for (let j = 0; j < values.length; j++) {
-      flattenData.push({
-        key,
-        value: values[j],
-      })
-    }
+  function setAxisXTicks(x, size) {
+    return axisBottom()
+      .scale(x)
+      .tickFormat((d) => d)
+      .tickSize(size)
   }
 
-  return flattenData
-}
+  function setAxisYTicks(y, size, maxBins) {
+    return axisLeft()
+      .scale(y)
+      .tickValues(stepper(0, maxBins, maxBins >= 30 ? 10 : 3))
+      .tickFormat(format('d'))
+      .tickSize(size)
+  }
 
-export const draw = (
-  svg,
-  data,
-  canvasWidth,
-  update = false,
-  enableJitter = false,
-) => {
-  const chartW = canvasWidth - margin.left - margin.right
-  let maxInAll = 0
+  const histogram = d3Histogram()
+    .value((d) => d)
+    .domain(x.domain())
+    .thresholds(thresholds)
 
-  const sumStat = d3
-    .nest()
-    .key((d) => d.type)
-    .rollup((d) => {
-      const values = d[0].values
-      const sortedValues = values.sort((a, b) => a - b)
-      const q1 = d3.quantile(sortedValues, 0.25)
-      const median = d3.quantile(sortedValues, 0.5)
-      const q3 = d3.quantile(sortedValues, 0.75)
-      const interQuantileRange = q3 - q1
-      const min = sortedValues[0]
-      const max = sortedValues[sortedValues.length - 1]
+  const bins = histogram(data)
+  const maxBins = d3Max(bins, (d) => d.length)
 
-      if (maxInAll < max) {
-        maxInAll = max
-      }
+  y.domain([0, maxBins])
 
-      return {
-        q1,
-        median,
-        q3,
-        interQuantileRange,
-        min,
-        max,
-      }
+  let bar = null
+
+  const tip = d3Tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html((d) => {
+      return `<strong>Frequency:</strong> <span style='color:red'>${d.length}</span>`
     })
-    .entries(data)
 
-  const y = d3
-    .scaleBand()
-    .range([chartSize.height, 0])
-    .domain(sumStat.map((s) => s.key))
-    .padding(0.4)
-
-  const x = d3.scaleLinear().domain([0, maxInAll]).range([0, chartW])
-
-  let whisker = null
-  let box = null
-  let medianLine = null
-  let jitter = null
-  const jitterWidth = 15
+  svg.call(tip)
 
   if (update) {
-    svg.selectAll('.x-axis').call(d3.axisBottom(x))
-    svg.selectAll('.y-axis').call(d3.axisLeft(y))
+    // Updating
+    bar = svg.selectAll('.bar').data(bins)
 
-    whisker = svg.selectAll('.whisker').data(sumStat)
-    box = svg.selectAll('.box').data(sumStat)
-    medianLine = svg.selectAll('.median-line').data(sumStat)
+    bar.exit().remove()
 
-    whisker.exit().remove()
-    box.exit().remove()
-    medianLine.exit().remove()
+    bar
+      .enter()
+      .append('g')
+      .attr('class', 'bar')
+      .append('rect')
+      .attr('class', 'rect')
 
-    whisker.enter().append('line').attr('class', 'whisker')
-    box.enter().append('rect').attr('class', 'bar box')
-    medianLine.enter().append('line').attr('class', 'median-line')
+    bar = svg.selectAll('.bar')
 
-    whisker = svg.selectAll('.whisker')
-    box = svg.selectAll('.box')
-    medianLine = svg.selectAll('.median-line')
-
-    if (enableJitter) {
-      jitter = svg.selectAll('.jitter').data(getJitterData(data))
-      jitter.exit().remove()
-      jitter.enter().append('circle').attr('class', 'jitter')
-      jitter = svg.selectAll('.jitter')
-    } else {
-      svg.selectAll('.jitter').data([]).exit().remove()
-    }
+    svg.selectAll('.x-axis').call(setAxisXTicks(x, -chartSize.height))
+    svg.selectAll('.y-axis').call(setAxisYTicks(y, -chartW, maxBins))
   } else {
     svg
       .append('g')
-      .attr('class', 'y-axis')
-      .style('font-size', '12px')
-      .call(d3.axisLeft(y))
-    svg
-      .append('g')
-      .attr('class', 'x-axis')
+      .attr('class', 'grid x-axis')
       .style('font-size', '12px')
       .attr('transform', `translate(0, ${chartSize.height})`)
-      .call(d3.axisBottom(x))
+      .call(setAxisXTicks(x, -chartSize.height))
+
+    svg
+      .append('g')
+      .attr('class', 'grid y-axis')
+      .style('font-size', '12px')
+      .call(setAxisYTicks(y, -chartW, maxBins))
+
+    bar = svg
+      .selectAll('.bar')
+      .data(bins)
+      .enter()
+      .append('g')
+      .attr('class', 'bar')
+
+    bar.append('rect').attr('class', 'rect')
 
     svg
       .append('text')
@@ -134,101 +127,42 @@ export const draw = (
         'transform',
         `translate(${chartW / 2}, ${canvasSize.height - margin.bottom / 3})`,
       )
-      .text('Stat')
+      .text(xLabel)
 
     svg
       .append('text')
       .attr('text-anchor', 'middle')
       .attr(
         'transform',
-        `translate(${chartW - canvasWidth + margin.left / 4 + 4}, ${
+        `translate(${chartW - canvasWidth + margin.left / 2 + 4}, ${
           chartSize.height / 2
         }) rotate(-90)`,
       )
-      .text('Type')
-
-    whisker = svg
-      .selectAll('vertLines')
-      .data(sumStat)
-      .enter()
-      .append('line')
-      .attr('class', 'whisker')
-
-    box = svg
-      .selectAll('boxes')
-      .data(sumStat)
-      .enter()
-      .append('rect')
-      .attr('class', 'bar box')
-
-    medianLine = svg
-      .selectAll('medianLines')
-      .data(sumStat)
-      .enter()
-      .append('line')
-      .attr('class', 'median-line')
-
-    if (enableJitter) {
-      jitter = svg
-        .selectAll('indPoints')
-        .data(getJitterData(data))
-        .enter()
-        .append('circle')
-        .attr('class', 'jitter')
-    }
+      .text('Frequency')
   }
 
-  // Whisker
-  whisker
-    .attr('x1', (d) => x(d.value.min))
-    .attr('x2', (d) => x(d.value.max))
-    .attr('y1', (d) => y(d.key) + y.bandwidth() / 2)
-    .attr('y2', (d) => y(d.key) + y.bandwidth() / 2)
-    .attr('stroke', 'black')
-    .style('width', 40)
+  bar
+    .select('rect')
+    .attr('transform', (d) => `translate(${x(d.x0)}, ${chartSize.height})`)
+    .attr('x', 1)
+    .attr('y', 0)
+    .attr('width', (d) => {
+      const width = x(d.x1) - x(d.x0) - 1
 
-  // Quartile Box
-  box
-    .attr('x', (d) => x(d.value.q1))
-    .attr('width', (d) => x(d.value.q3) - x(d.value.q1))
-    .attr('y', (d) => y(d.key))
-    .attr('height', y.bandwidth())
-    .attr('stroke', 'black')
+      if (width < 0) {
+        return 0
+      }
 
-  // Median line
-  medianLine
-    .attr('y1', (d) => y(d.key))
-    .attr('y2', (d) => y(d.key) + y.bandwidth())
-    .attr('x1', (d) => x(d.value.median))
-    .attr('x2', (d) => x(d.value.median))
-    .attr('height', y.bandwidth())
-    .attr('stroke', 'black')
-    .style('width', 80)
-
-  const tip = d3Tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html((d) => {
-      return `<strong>Stat:</strong> <span style='color:red'>${d.value}</span>`
+      return width
     })
+    .attr('height', 0)
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
 
-  svg.call(tip)
-
-  if (enableJitter) {
-    jitter
-      .attr('cx', (d) => x(d.value))
-      .attr('cy', (d) => {
-        return (
-          y(d.key) +
-          y.bandwidth() / 2 -
-          jitterWidth / 2 +
-          Math.random() * jitterWidth
-        )
-      })
-      .attr('r', 2)
-      .attr('stroke', 'black')
-      .style('fill', '#dff9fb')
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
-  }
+  bar
+    .select('rect')
+    .transition()
+    .duration(800)
+    .attr('y', (d) => -(chartSize.height - y(d.length)))
+    .attr('height', (d) => chartSize.height - y(d.length))
 }

@@ -4,16 +4,16 @@ import Layout from '~/components/shared/Layout'
 import Head from '~/components/shared/Head'
 import { getStats } from '~/util'
 
-const StatDistribution = () => {
+const StatDistributionPerType = () => {
   const stats = getStats()
 
   return (
     <>
-      <Head title="Stat Distribution" />
+      <Head title="Stat Distribution per Type" />
       <Layout>
         <Container className="py-4">
           <div className="text-primary my-4 text-center">
-            <h3>Stat Distribution</h3>
+            <h3>Stat Distribution per Type</h3>
             <p className="text-muted">Choose which stat you want to see.</p>
           </div>
 
@@ -26,8 +26,8 @@ const StatDistribution = () => {
                   </Card.Header>
                   <Card.Body>
                     <Link
-                      href="/visualization/stat-distribution/[id]"
-                      as={`/visualization/stat-distribution/${stat.key}`}
+                      href="/visualization/stat-distribution-per-type/[id]"
+                      as={`/visualization/stat-distribution-per-type/${stat.key}`}
                       passHref
                     >
                       <Button block variant="dark">
@@ -45,4 +45,4 @@ const StatDistribution = () => {
   )
 }
 
-export default StatDistribution
+export default StatDistributionPerType

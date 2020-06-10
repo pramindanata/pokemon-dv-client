@@ -13,7 +13,7 @@ const Sidebar = (props) => {
   const classes = classnames(className)
 
   function getUrl(key) {
-    return `/visualization/stat-distribution/${key}`
+    return `/visualization/stat-distribution-per-type/${key}`
   }
 
   return (
@@ -24,7 +24,7 @@ const Sidebar = (props) => {
         <ListGroup variant="flush" className="border-top-0">
           {getStats().map((stat) => (
             <Link
-              href="/visualization/stat-distribution/[id]"
+              href="/visualization/stat-distribution-per-type/[id]"
               as={getUrl(stat.key)}
               passHref
               key={stat.key}

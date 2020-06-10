@@ -12,7 +12,7 @@ import { getStats } from '~/util'
 import { getStat as getStatFreq } from '~/request/frequency'
 
 const Chart = dynamic(
-  () => import('~/components/page/visualization/stat-frequency/Chart'),
+  () => import('~/components/page/visualization/stat-distribution/Chart'),
   {
     ssr: false,
   },
@@ -29,7 +29,7 @@ const alteredStats = [
   stats[0],
 ]
 
-const StatFrequency = (props) => {
+const StatDistribution = (props) => {
   const { graphData: initialGraphData, error } = props
   const [filter, setFilter] = useState({ generation: 'all' })
   const [submit, setSubmit] = useState(false)
@@ -64,11 +64,11 @@ const StatFrequency = (props) => {
 
   return (
     <>
-      <Head title={error ? 'Whoops' : 'Stat Frequency'} />
+      <Head title={error ? 'Whoops' : 'Stat Distribution'} />
       <Layout>
         <Container className="py-4">
           <div className="text-primary my-4 text-center">
-            <h3>Stat Frequency</h3>
+            <h3>Stat Distribution</h3>
           </div>
 
           {!error ? (
@@ -109,7 +109,7 @@ const StatFrequency = (props) => {
   )
 }
 
-StatFrequency.propTypes = {
+StatDistribution.propTypes = {
   graphData: PropTypes.object,
   error: PropTypes.object,
 }
@@ -145,4 +145,4 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-export default StatFrequency
+export default StatDistribution
