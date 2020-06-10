@@ -9,7 +9,7 @@ import Error from '~/components/shared/Error'
 import Filter from '~/components/shared/GenerationFilter'
 
 import { getStats } from '~/util'
-import { getStat as getStatFreq } from '~/request/frequency'
+import { getStat as getStatDist } from '~/request/distribution'
 
 const Chart = dynamic(
   () => import('~/components/page/visualization/stat-distribution/Chart'),
@@ -45,7 +45,7 @@ const StatDistribution = (props) => {
     if (submit && !loading) {
       setLoading(true)
 
-      Promise.all(stats.map((stat) => getStatFreq(stat.key, filter)))
+      Promise.all(stats.map((stat) => getStatDist(stat.key, filter)))
         .then((res) => {
           const newGraphData = stats.reduce((p, c, i) => {
             p[c.key] = res[i].data
@@ -123,7 +123,7 @@ export async function getServerSideProps(ctx) {
       generation: 'all',
     }
     const results = await Promise.all(
-      stats.map((stat) => getStatFreq(stat.key, filter)),
+      stats.map((stat) => getStatDist(stat.key, filter)),
     )
     graphData = stats.reduce((p, c, i) => {
       p[c.key] = results[i].data
