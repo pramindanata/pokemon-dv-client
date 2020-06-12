@@ -10,7 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ![Pokemon Detail](/preview/slow-bro.png)
 ![Attack Distribution Chart](/preview/chart.png)
 
-## Getting Started
+## Development
 
 **Make sure [pokemon-dv-server](https://github.com/pramindanata/pokemon-dv-server) runs first !**
 
@@ -23,8 +23,6 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
 ## About Next.js
 
